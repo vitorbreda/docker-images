@@ -1,0 +1,24 @@
+# Creating a User for MySQL
+    - docker-compose exec db bash
+    - mysql -u root -p
+    - show databases;
+    - GRANT ALL ON laravel.* TO 'laraveluser'@'%' IDENTIFIED BY 'your_laravel_db_password';
+    - FLUSH PRIVILEGES;
+    - EXIT;
+
+# Set Environment Settings 
+    - cp .env.example .env
+    Edit: 
+        DB_CONNECTION=mysql
+        DB_HOST=db
+        DB_PORT=3306
+        DB_DATABASE=laravel
+        DB_USERNAME=laraveluser
+        DB_PASSWORD=your_laravel_db_password
+
+# Keys and cache    
+    - docker-compose exec app php artisan key:generate
+    - docker-compose exec app php artisan config:cache
+
+# Migrating
+    - docker-compose exec app php artisan migrate
